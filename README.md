@@ -9,7 +9,7 @@
 
 ```bash
 # Клонувати репозиторій
-git clonehttps://github.com/kalmykov-mykhailo/table_products.git
+git clone https://github.com/kalmykov-mykhailo/table_products.git
 
 # Перейти в каталог проекту
 cd table_products
