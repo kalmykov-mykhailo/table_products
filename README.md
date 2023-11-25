@@ -16,10 +16,15 @@ cd table_products
 
 # Встановити залежності
 npm install
-
+# або
+yarn install
 
 # Режим розробки
 npm run dev
+# або
+yarn dev
 
 # Збірка для продакшн
 npm run build
+# або
+yarn build
