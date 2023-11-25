@@ -9,10 +9,12 @@ export type Product = {
   quantity_total: string;
   sell_price: string;
   weight: string;
+  quantity?:number;
 };
-export type selectedProduct = {
-  selected_product_id: string;
-  test_id: string;
+export type SelectedProduct = {
   model: string;
+  selected_product_id: string;
+  quantity: string;
+  test_id: string;
   product_info: Product;
 };

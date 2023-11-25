@@ -22,27 +22,7 @@
       <el-table-column label="Ціна Закупки" sortable prop="original_price" />
 
       <el-table-column label="Ціна Продажі" sortable prop="sell_price" />
-      <el-table-column label="Кіл-сть" prop="quantity_total">
-        <template #default="scope">
-          <!-- :class="!scope.row.isActive && 'input-number--no_active'" -->
-          <div
-            class=""
-            v-if="!scope.row.isActive"
-            @dblclick="handleDbClick(scope.row)"
-          >
-            {{ scope.row.quantity_total }}
-          </div>
-          <el-input-number
-            v-if="scope.row.isActive"
-            v-model="scope.row.quantity_total"
-            :min="0"
-            :max="100"
-            size="small"
-            :controls="scope.row.isActive"
-            @blur="handleBlur(scope.row)"
-            />
-            <!-- @change="handleChange" -->
-        </template>
+      <el-table-column label="Кіл-сть на складі	" prop="quantity_total">
       </el-table-column>
       <el-table-column align="right" min-width="100">
         <template #header>
@@ -79,7 +59,7 @@
 <script lang="ts" setup>
 import { computed, ref, onMounted, watch } from 'vue';
 import { useProductStore } from '../../stores/productsStores';
-// const activeInputRef = ref(null);
+
 const store = useProductStore();
 const small = ref(false);
 const background = ref(false);
@@ -92,18 +72,6 @@ const filterTableData = computed(() =>
       data.name.toLowerCase().includes(search.value.toLowerCase()),
   ),
 );
-const handleBlur = (row: any) => {
-  row.isActive = false;
-  console.log('handleBlur');
-
-  // store.updateQuantity(row.model, 10);
-};
-const handleDbClick = (row: any) => {
-  row.isActive = true;
-  // nextTick(() => {
-  //   activeInputRef?.value?.focus();
-  // });
-};
 
 onMounted(() => {
   store.getProducts();
@@ -114,12 +82,4 @@ watch(
   () => store.getProducts(),
 );
 </script>
-<style lang="scss" scoped>
-.input-number {
-  &--no_active {
-    &:deep(.el-input__wrapper) {
-      @apply shadow-none bg-transparent;
-    }
-  }
-}
-</style>
+<style lang="scss" scoped></style>

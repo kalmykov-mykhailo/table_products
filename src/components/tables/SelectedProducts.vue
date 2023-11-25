@@ -23,7 +23,35 @@
       <el-table-column label="Ціна Закупки" sortable prop="original_price" />
 
       <el-table-column label="Ціна Продажі	" sortable prop="sell_price" />
-      <el-table-column label="Кіл-сть " prop="quantity_total" />
+      <el-table-column
+        label="Кіл-сть "
+        prop="quantity"
+        ref="input_number"
+        id="input_number"
+      >
+        <template #default="scope">
+          <div
+            class=""
+            v-if="!scope.row.isActive"
+            @dblclick="handleDbClick(scope.row)"
+          >
+            {{ scope.row.quantity }}
+          </div>
+          <el-input-number
+            :id="`input_number_${scope.row.model}`"
+            :ref="`input_number_${scope.row.model}`"
+            v-if="scope.row.isActive"
+            v-model="scope.row.quantity"
+            :min="0"
+            :max="100"
+            size="small"
+            :controls="false"
+            @blur="handleBlur(scope.row)"
+            />
+            <!-- :controls="scope.row.isActive" -->
+          <!-- @change="handleChange" -->
+        </template>
+      </el-table-column>
       <el-table-column align="right" min-width="100">
         <template #header>
           <el-input
@@ -63,12 +91,7 @@
 import { computed, ref, onMounted } from 'vue';
 import { useProductStore } from '../../stores/productsStores';
 const store = useProductStore();
-
-// const small = ref(false);
-// const background = ref(false);
-// const disabled = ref(false);
 const total = computed(() => store.selectedProducts.length);
-
 const search = ref('');
 const filterTableData = computed(() => {
   return store.selectedProducts.filter(
@@ -77,7 +100,18 @@ const filterTableData = computed(() => {
       data.name.toLowerCase().includes(search.value.toLowerCase()),
   );
 });
-
+const handleDbClick = (row: any) => {
+  row.isActive = true;
+  setTimeout(() => {
+    document.getElementById(`input_number_${row.model}`)?.focus();
+  }, 300);
+  // const `input_number_${row.model}` = ref();
+  // onClickOutside(`input_number_${row.model}`.value, console.log(456));
+};
+const handleBlur = (row: any) => {
+  row.isActive = false;
+  store.updateQuantity(row.model, row.quantity);
+};
 onMounted(() => {
   store.getSelectedProducts();
 });

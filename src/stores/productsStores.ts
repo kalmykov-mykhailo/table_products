@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { Product, selectedProduct } from '../schemas/Product.schema';
+import { Product, SelectedProduct } from '../schemas/Product.schema';
 
 type State = {
   data: Product[];
@@ -71,7 +71,9 @@ export const useProductStore = defineStore('products', {
           return response.json();
         })
         .then((data) => {
-          this.selectedProducts = data.map((element: selectedProduct) => element.product_info);
+          this.selectedProducts = data.map((element: SelectedProduct) => {
+            return { ...element.product_info, quantity: +element.quantity };
+          });
           this.loading = false;
         })
         .catch((error) => {
@@ -98,7 +100,7 @@ export const useProductStore = defineStore('products', {
           return response.json();
         })
         .then((data) => {
-          this.selectedProducts.push(data);
+          this.selectedProducts.push({ ...data, quantity: 0 });
           this.loading = false;
         })
         .catch((error) => {
@@ -153,8 +155,7 @@ export const useProductStore = defineStore('products', {
           }
           return response.json();
         })
-        .then((data) => {
-          console.log(data);
+        .then(() => {
           this.loading = false;
         })
         .catch((error) => {
@@ -164,8 +165,5 @@ export const useProductStore = defineStore('products', {
           );
         });
     },
-    // resetState() {
-    //   Object.assign(this, initState);
-    // },
   },
 });
