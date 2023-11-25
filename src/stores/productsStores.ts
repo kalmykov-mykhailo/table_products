@@ -8,8 +8,6 @@ type State = {
   testId: number;
   currentPage: number;
   pageSize: number;
-  // selectedCurrentPage: number;
-  // selectedPageSize: number;
   total: number;
 };
 
@@ -19,8 +17,6 @@ const initState: State = {
   loading: false,
   testId: 7,
   currentPage: 1,
-  // selectedCurrentPage: 1,
-  // selectedPageSize: 10,
   pageSize: 10,
   total: 2691,
 };

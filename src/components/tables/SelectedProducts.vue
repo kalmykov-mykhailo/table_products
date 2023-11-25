@@ -47,9 +47,7 @@
             size="small"
             :controls="false"
             @blur="handleBlur(scope.row)"
-            />
-            <!-- :controls="scope.row.isActive" -->
-          <!-- @change="handleChange" -->
+          />
         </template>
       </el-table-column>
       <el-table-column align="right" min-width="100">
@@ -73,17 +71,6 @@
       </el-table-column>
     </el-table>
     <span class="flex justify-end pt-2">Всього обрано: {{ total }}</span>
-    <!-- <el-pagination
-      class="flex justify-end"
-      v-model:current-page="store.selectedCurrentPage"
-      v-model:page-size="store.selectedPageSize"
-      :page-sizes="[10, 50, 100, 150]"
-      :small="small"
-      :disabled="disabled"
-      :background="background"
-      layout="total, sizes, prev, pager, next"
-      :total="total"
-    /> -->
   </div>
 </template>
 
@@ -105,8 +92,6 @@ const handleDbClick = (row: any) => {
   setTimeout(() => {
     document.getElementById(`input_number_${row.model}`)?.focus();
   }, 300);
-  // const `input_number_${row.model}` = ref();
-  // onClickOutside(`input_number_${row.model}`.value, console.log(456));
 };
 const handleBlur = (row: any) => {
   row.isActive = false;
